@@ -1,24 +1,22 @@
 import React from 'react'
-import * as BooksAPI from './BooksAPI'
 
 class Book extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			book: props,
-			shelf: this.state.book.shelf || "none"
+			shelf: this.props.book.shelf || "none"
 		}
 	}
 
-	render() {
+  render() {
 		return (
 			<li>
 				<div className="book">
 					<div className="book-top">
-						<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.state.book.imageLinks.thumbnail})` || "" }}></div>
+						<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.book.imageLinks.thumbnail})` || "" }}></div>
 						<div className="book-shelf-changer">
-							<select value={this.state.book.shelf || "none"} onChange={e => this.updateShelf(this.state.book, e.target.value)}>
+							<select value={this.state.shelf} onChange={e => {this.props.onUpdateBooks(this.props.book, e.target.value); this.setState({shelf: e.target.value})}}>
 								<option value="move" disabled>Move to...</option>
 								<option value="currentlyReading">Currently Reading</option>
 								<option value="wantToRead">Want to Read</option>
@@ -27,8 +25,8 @@ class Book extends React.Component {
 							</select>
 						</div>
 					</div>
-					<div className="book-title">{this.state.book.title || "Untitled"}</div>
-					<div className="book-authors">{this.state.book.authors[0] || "No author"}</div>
+					<div className="book-title">{this.props.book.title || "Untitled"}</div>
+					<div className="book-authors">{this.props.book.authors[0] || "No author"}</div>
 				</div>
 			</li>
 		);
