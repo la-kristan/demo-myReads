@@ -10,6 +10,7 @@ class Search extends React.Component {
     };
 
 	searchBooks = async function(query) {
+        console.log(query);
     	let results = await BooksAPI.search(query);
         console.log(results);
     };
@@ -20,7 +21,7 @@ class Search extends React.Component {
             <div className="search-books-bar">
               <Link to="/" className="close-search">Close</Link>
               <div className="search-books-input-wrapper">
-              <input type="text" placeholder="Search by title or author" onChange={e => {this.setState({query: this.value}); this.searchBooks(e.value)}}/>
+              <input type="text" placeholder="Search by title or author" onChange={e => {this.setState({query: e.target.value}); console.log(e); this.searchBooks(e.target.value)}}/>
 
               </div>
             </div>
